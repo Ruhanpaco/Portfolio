@@ -39,3 +39,16 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+
+# local backups and work files
+.backups/
+*.sql
+node_modules/
+deploy_blog_post.js
+deploy_chunked.js
+generate_final_sql.js
+ready_to_run_devfest_post.sql
+*.JPG
+*.png
+*.PNG
+*.jpg
