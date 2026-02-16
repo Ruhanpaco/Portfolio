@@ -1,4 +1,5 @@
-import { sql } from "@/app/lib/db";
+import { getDocuments, Query, APPWRITE_BOOK_DATABASE_ID, APPWRITE_POSTS_COLLECTION_ID } from "@/app/lib/appwrite-server";
+import { notFound } from "next/navigation";
 import { blogPostSchema } from "@/app/lib/validations";
 import PostClient from "./PostClient";
 import { Metadata } from "next";
@@ -8,14 +9,16 @@ export const dynamic = 'force-dynamic';
 export async function generateMetadata({ params }: { params: Promise<{ slug: string }> }): Promise<Metadata> {
     const { slug } = await params;
     try {
-        const results = await sql`
-            SELECT title, excerpt, date, author_name, featured_image 
-            FROM blog_posts 
-            WHERE slug = ${slug} 
-            LIMIT 1
-        `;
-        if (results[0]) {
-            const post = blogPostSchema.parse(results[0]);
+        const response = await getDocuments(
+            APPWRITE_BOOK_DATABASE_ID,
+            APPWRITE_POSTS_COLLECTION_ID,
+            [Query.equal("slug", slug)]
+        );
+
+        if (response.documents[0]) {
+            const postData = response.documents[0];
+            // Map Appwrite fields or parse as is if they match
+            const post = blogPostSchema.parse(postData);
             return {
                 title: `${post.title} | Ruhan Pacolli`,
                 description: post.excerpt,
@@ -24,7 +27,7 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
                     description: post.excerpt,
                     type: 'article',
                     publishedTime: new Date(post.date).toISOString(),
-                    authors: [post.author_name],
+                    authors: post.author_name ? [post.author_name] : ["Ruhan Pacolli"],
                     images: post.featured_image ? [post.featured_image] : [],
                 },
                 twitter: {
@@ -36,7 +39,7 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
             };
         }
     } catch (error) {
-        console.error("SEO Metadata Failure:", error);
+        console.error("SEO Metadata Failure (Appwrite):", error);
     }
     return {
         title: "Blog | Ruhan Pacolli",
@@ -49,22 +52,19 @@ export default async function BlogPostPage({ params }: { params: Promise<{ slug:
 
     let post = null;
     try {
-        console.log(`[DEBUG] Fetching post for slug: ${slug}`);
-        const results = await sql`SELECT * FROM blog_posts WHERE slug = ${slug} LIMIT 1`;
-        console.log(`[DEBUG] Raw DB result:`, results[0] ? 'Found record' : 'No record found');
+        console.log(`[DEBUG] Fetching lightweight post for slug: ${slug} from Appwrite`);
+        const response = await getDocuments(
+            APPWRITE_BOOK_DATABASE_ID,
+            APPWRITE_POSTS_COLLECTION_ID,
+            [Query.equal("slug", slug)]
+        );
 
-        if (results[0]) {
-            console.log(`[DEBUG] Parsing record...`);
-            try {
-                post = blogPostSchema.parse(results[0]);
-                console.log(`[DEBUG] Successfully parsed post`);
-            } catch (zodError) {
-                console.error(`[DEBUG] Validation Error:`, JSON.stringify(zodError, null, 2));
-                console.log(`[DEBUG] Record that failed validation:`, results[0]);
-            }
+        if (response.documents[0]) {
+            post = blogPostSchema.parse(response.documents[0]);
+            console.log(`[DEBUG] Successfully fetched metadata for post from Appwrite`);
         }
     } catch (error) {
-        console.error("Security/Validation Failure - Blog post detail:", error);
+        console.error("Fetch Failure - Blog post metadata (Appwrite):", error);
     }
 
     return <PostClient post={post} />;

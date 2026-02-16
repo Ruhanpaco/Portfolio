@@ -1,22 +1,23 @@
-import { sql } from "@/app/lib/db";
-import { blogPostsSchema } from "@/app/lib/validations";
+import { getDocuments, Query, APPWRITE_BOOK_DATABASE_ID, APPWRITE_POSTS_COLLECTION_ID } from "@/app/lib/appwrite-server";
 import BlogClient from "./BlogClient";
+import { blogPostSchema } from "@/app/lib/validations";
 
 export const dynamic = 'force-dynamic';
 
 export default async function BlogPage() {
     let blogs: any[] = [];
     try {
-        const results = await sql`
-            SELECT id, title, slug, excerpt, tag, date, reading_time_minutes, author_name 
-            FROM blog_posts 
-            ORDER BY date DESC
-        `;
-        // Validate the data from the database
-        blogs = blogPostsSchema.parse(results);
+        const response = await getDocuments(
+            APPWRITE_BOOK_DATABASE_ID,
+            APPWRITE_POSTS_COLLECTION_ID,
+            [Query.orderDesc("date")]
+        );
+
+        // Validate the data from Appwrite
+        const validatedPosts = response.documents.map((doc: any) => blogPostSchema.parse(doc));
+        blogs = validatedPosts;
     } catch (error) {
-        console.error("Security/Validation Failure - Blog posts:", error);
-        // Fallback or empty state is handles by BlogClient
+        console.error("Appwrite Fetch Failure - Blog posts:", error);
     }
 
     return (
