@@ -1,8 +1,14 @@
 import { getDocuments, Query, APPWRITE_BOOK_DATABASE_ID, APPWRITE_POSTS_COLLECTION_ID } from "@/app/lib/appwrite-server";
 import BlogClient from "./BlogClient";
 import { blogPostSchema } from "@/app/lib/validations";
+import { Metadata } from "next";
 
 export const dynamic = 'force-dynamic';
+
+export const metadata: Metadata = {
+    title: "Blog",
+    description: "Technical talks, engineering insights, and updates about software development and community events.",
+};
 
 export default async function BlogPage() {
     let blogs: any[] = [];

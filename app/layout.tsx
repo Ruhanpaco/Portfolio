@@ -17,8 +17,30 @@ import Navbar from "./components/Navbar";
 import Footer from "./components/Footer";
 
 export const metadata: Metadata = {
-  title: "Ruhan Pacolli • Software Engineer",
+  metadataBase: new URL("https://www.ruhanpacolli.online"),
+  title: {
+    default: "Ruhan Pacolli • Software Engineer",
+    template: "%s | Ruhan Pacolli",
+  },
   description: "Personal portfolio of Ruhan Pacolli, Software Engineer and Founder of EliteDev Agency.",
+  openGraph: {
+    title: "Ruhan Pacolli • Software Engineer",
+    description: "Building premium digital experiences. Founder of EliteDev Agency.",
+    url: "https://www.ruhanpacolli.online",
+    siteName: "Ruhan Pacolli",
+    locale: "en_US",
+    type: "website",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Ruhan Pacolli",
+    description: "Software Engineer & Founder of EliteDev Agency.",
+    creator: "@ruhanpacolli", // Assuming this handle, or generic
+  },
+  robots: {
+    index: true,
+    follow: true,
+  },
 };
 
 export default function RootLayout({
