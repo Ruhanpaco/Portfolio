@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { DM_Serif_Display, Syne } from "next/font/google";
+import { Analytics } from "@vercel/analytics/next";
 import "./globals.css";
 
 const dmSerif = DM_Serif_Display({
@@ -58,6 +59,7 @@ export default function RootLayout({
           {children}
           <Footer />
         </div>
+        <Analytics />
       </body>
     </html>
   );
