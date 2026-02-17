@@ -17,10 +17,11 @@ const client = new Client()
 const databases = new Databases(client);
 const storage = new Storage(client);
 
-// Safe Query implementation to bypass SDK instanceof errors
+// Safe Query implementation to bypass SDK instanceof errors for REST fetch
 export const Query = {
-    orderDesc: (attribute: string) => JSON.stringify({ method: "orderDesc", attribute }),
-    equal: (attribute: string, value: any) => JSON.stringify({ method: "equal", attribute, values: [value] }),
+    orderDesc: (attribute: string) => `orderDesc("${attribute}")`,
+    equal: (attribute: string, value: any) => `equal("${attribute}", ${JSON.stringify(Array.isArray(value) ? value : [value])})`,
+    limit: (limit: number) => `limit(${limit})`,
 };
 
 export { ID, databases, storage };
@@ -48,7 +49,8 @@ export async function getDocuments(databaseId: string, collectionId: string, que
     const queryParams = new URLSearchParams();
     queries.forEach(q => queryParams.append("queries[]", q));
 
-    const url = `${endpoint}/databases/${databaseId}/collections/${collectionId}/documents?${queryParams.toString()}`;
+    const queryStr = queryParams.toString();
+    const url = `${endpoint}/databases/${databaseId}/collections/${collectionId}/documents${queryStr ? '?' + queryStr : ''}`;
 
     const response = await fetch(url, {
         method: "GET",

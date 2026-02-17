@@ -1,274 +1,275 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { Download, ArrowUpRight, Plus, Users, ShieldCheck, FileText } from "lucide-react";
+import { Download, ArrowUpRight, Globe, Briefcase, MapPin, Award, Calendar, ExternalLink } from "lucide-react";
+import Link from "next/link";
 import {
     SiReact,
     SiTypescript,
     SiLaravel,
     SiAngular,
+    SiSwift,
     SiExpo,
-    SiSwift
+    SiAmazonwebservices,
+    SiNodedotjs
 } from "react-icons/si";
-import { FaAws, FaNodeJs } from "react-icons/fa";
 import { RiNextjsFill } from "react-icons/ri";
 
 export default function ResumePage() {
     const reveal = {
-        initial: { opacity: 0, y: 20 },
-        animate: { opacity: 1, y: 0, transition: { duration: 0.8, ease: [0.16, 1, 0.3, 1] as any } },
+        initial: { opacity: 0, y: 10 },
+        animate: { opacity: 1, y: 0, transition: { duration: 0.6, ease: [0.16, 1, 0.3, 1] as any } },
     };
 
+    const stagger = {
+        animate: {
+            transition: {
+                staggerChildren: 0.05,
+            },
+        },
+    };
+
+    const experiences = [
+        {
+            title: "Contributing Member",
+            company: "FLOSSK - Free Libre Open Source Software Kosova",
+            location: "Pristina, Kosovo",
+            period: "JAN 2026 — PRESENT",
+            description: "Logistics Management, Open-Source Software. Contributing to the mission of promoting free and open-source software in Kosovo."
+        },
+        {
+            title: "Founder & Managing Director",
+            company: "EliteDev Agency",
+            location: "Pristina, Kosovo",
+            period: "JUN 2025 — PRESENT",
+            description: "Leading the vision and execution of the agency to deliver technical digital solutions. Overseeing client engagement and business-tech strategy alignment."
+        },
+        {
+            title: "Software Engineer (Internship)",
+            company: "Pioneering People Ltd",
+            location: "Remote",
+            period: "MAY 2025 — JUL 2025",
+            details: [
+                "Developed a job-proposal platform for the hospitality sector using Laravel, PHP, MongoDB, AWS S3, and Redis.",
+                "Designed and built core components including Create Job, Search Pioneer, and a redesigned dashboard.",
+                "Optimized APIs and database queries to support concurrent users with minimal latency.",
+                "Strengthened security by implementing SQL-injection protection and reviewing data-handling practices."
+            ]
+        },
+        {
+            title: "Full Stack Developer",
+            company: "Freelance",
+            location: "Remote",
+            period: "JAN 2020 — JAN 2024",
+            description: "Designing and developing end-to-end web applications for various clients, mastering a wide range of technologies and project scopes."
+        }
+    ];
+
+    const community = [
+        {
+            role: "SFK / FLOSSK Team",
+            org: "FLOSSK",
+            period: "OCT 2025 — PRESENT",
+            description: "Contributing to sponsor relations and project representation at SFK (Software Freedom Kosova)."
+        },
+        {
+            role: "Arena Robobasket Supervisor",
+            org: "Kosova Makers League",
+            period: "JUN 2025 — PRESENT",
+            description: "Supervising national robotics events with 3500+ students. Ensuring fair play and rule adherence."
+        },
+        {
+            role: "Community Contributor",
+            org: "GDG Prishtina",
+            period: "MAY 2025 — PRESENT",
+            description: "Volunteering for 'Build with AI' and Devfest (500+ attendees). Logistics and check-in support."
+        }
+    ];
+
+    const certifications = [
+        {
+            title: "ISO 27001:2022 Implementation",
+            issuer: "Mastermind",
+            date: "2024",
+            file: "/assets/certifications/Mastermind ISO 27001 2022 (1).pdf"
+        },
+        {
+            title: "Meta Professional Certificate",
+            issuer: "Meta",
+            date: "2023",
+            file: "/assets/certifications/META.pdf"
+        },
+        {
+            title: "Technical Domain",
+            issuer: "Coursera",
+            date: "2023",
+            file: "/assets/certifications/Coursera Course M7CYXZOB4BLW.pdf"
+        },
+        {
+            title: "Advanced Engineering Specialization",
+            issuer: "Coursera",
+            date: "2023",
+            file: "/assets/certifications/Coursera Course PDF.pdf"
+        }
+    ];
+
     return (
-        <main className="px-8 pt-48 pb-24 max-w-7xl mx-auto">
+        <main className="px-6 md:px-8 pt-32 md:pt-40 pb-24 max-w-7xl mx-auto font-sans">
             <motion.div
                 initial="initial"
                 animate="animate"
-                className="grid grid-cols-1 md:grid-cols-12 gap-12"
+                variants={stagger}
+                className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-24"
             >
-                {/* Header */}
-                <div className="md:col-span-12 mb-12">
-                    <motion.h1
-                        variants={reveal}
-                        className="text-7xl md:text-[10rem] font-serif leading-[0.85] tracking-tight"
-                    >
-                        Experience <br />
-                        <span className="text-primary italic">& Scope</span>
-                    </motion.h1>
+                {/* Header Section */}
+                <div className="lg:col-span-8 space-y-8">
+                    <motion.div variants={reveal} className="space-y-4">
+                        <h1 className="text-5xl md:text-8xl font-serif tracking-tight">Experience</h1>
+                        <p className="text-xl md:text-2xl text-foreground/60 font-serif italic">History of technical leadership and execution.</p>
+                    </motion.div>
 
-                    <motion.div
-                        variants={reveal}
-                        className="mt-12 flex flex-wrap items-center gap-6"
-                    >
-                        <button className="bg-primary text-white px-8 py-4 rounded-full font-medium flex items-center gap-3 hover:scale-105 transition-transform active:scale-95">
-                            DOWNLOAD PDF
-                            <Download className="h-4 w-4" />
+                    <motion.div variants={reveal} className="flex flex-wrap gap-4 pt-4">
+                        <button className="bg-primary text-white px-8 py-3 rounded-lg font-bold flex items-center gap-2 hover:bg-primary/90 transition-all active:scale-95 text-sm shadow-lg shadow-primary/20">
+                            DOWNLOAD CV <Download className="h-4 w-4" />
                         </button>
-                        <span className="text-sm opacity-40 uppercase tracking-widest">Available for selective partnerships</span>
+                        <div className="flex items-center gap-2 px-4 py-3 rounded-lg border border-foreground/10 text-[10px] font-bold uppercase tracking-widest opacity-60">
+                            <span className="h-1.5 w-1.5 rounded-full bg-green-500 animate-pulse" />
+                            Available for partnerships
+                        </div>
                     </motion.div>
                 </div>
 
-                {/* Professional Journey */}
-                <div className="md:col-span-8 space-y-12">
-                    <motion.div variants={reveal}>
-                        <h2 className="text-sm font-medium uppercase tracking-[0.3em] opacity-40 mb-8 flex items-center gap-3">
-                            <div className="h-2 w-2 rounded-full bg-primary" />
+                <div className="hidden lg:block lg:col-span-4" />
+
+                {/* Main Content */}
+                <div className="lg:col-span-8 space-y-24">
+                    {/* Work History */}
+                    <section className="space-y-16">
+                        <motion.h2 variants={reveal} className="text-xs font-bold uppercase tracking-[0.3em] text-primary flex items-center gap-4">
+                            <span className="h-px w-8 bg-primary" />
                             Work History
-                        </h2>
+                        </motion.h2>
 
                         <div className="space-y-16">
-                            <div className="group border-b border-foreground/5 pb-10">
-                                <div className="flex flex-col md:flex-row justify-between items-start gap-4 mb-6">
-                                    <div>
-                                        <h3 className="text-3xl font-serif">Contributing Member</h3>
-                                        <p className="text-primary font-medium">FLOSSK - Free Libre Open Source Software Kosova</p>
+                            {experiences.map((exp, i) => (
+                                <motion.div key={i} variants={reveal} className="group relative">
+                                    <div className="flex flex-col md:flex-row justify-between items-start gap-4 mb-4">
+                                        <div className="space-y-1">
+                                            <h3 className="text-2xl md:text-3xl font-serif group-hover:text-primary transition-colors">{exp.title}</h3>
+                                            <div className="flex items-center gap-2 text-sm font-medium opacity-60">
+                                                <span>{exp.company}</span>
+                                                <span className="opacity-30">•</span>
+                                                <span className="flex items-center gap-1"><MapPin className="h-3 w-3" /> {exp.location}</span>
+                                            </div>
+                                        </div>
+                                        <div className="px-3 py-1 rounded bg-foreground/[0.03] border border-foreground/5 text-[10px] font-bold tracking-widest opacity-40">
+                                            {exp.period}
+                                        </div>
                                     </div>
-                                    <span className="text-sm opacity-40 font-medium">JAN 2026 — PRESENT (2 MOS)</span>
-                                </div>
-                                <p className="text-lg opacity-60 leading-relaxed max-w-2xl">
-                                    Logistics Management, Open-Source Software. Contributing to the mission of promoting free and open-source software in Kosovo.
-                                </p>
-                            </div>
-
-                            <div className="group border-b border-foreground/5 pb-10">
-                                <div className="flex flex-col md:flex-row justify-between items-start gap-4 mb-6">
-                                    <div>
-                                        <h3 className="text-3xl font-serif">Founder</h3>
-                                        <p className="text-primary font-medium">Elitedev Agency</p>
-                                    </div>
-                                    <span className="text-sm opacity-40 font-medium">JUN 2025 — PRESENT (9 MOS)</span>
-                                </div>
-                                <p className="text-lg opacity-60 leading-relaxed max-w-2xl">
-                                    Amazon S3, Business Ownership and more. Leading the vision and execution of the agency to deliver high-quality digital solutions for clients.
-                                </p>
-                            </div>
-
-                            <div className="group border-b border-foreground/5 pb-10">
-                                <div className="flex flex-col md:flex-row justify-between items-start gap-4 mb-6">
-                                    <div>
-                                        <h3 className="text-3xl font-serif">Software Engineer (Internship)</h3>
-                                        <p className="text-primary font-medium">Pioneering People Ltd</p>
-                                    </div>
-                                    <span className="text-sm opacity-40 font-medium">MAY 2025 — JUL 2025 (3 MOS)</span>
-                                </div>
-                                <div className="space-y-6 text-lg opacity-60 leading-relaxed max-w-2xl">
-                                    <p>Contributed to the development of a job-proposal platform (destinations → pioneers) for the hospitality sector using Laravel, PHP, MongoDB, AWS S3, and Redis.</p>
-                                    <p>Designed and built new pages and components, including Create Job, Search Pioneer, Search Destination, and a redesigned dashboard homepage.</p>
-                                    <p>Refactored and tested legacy code to support new layouts and settings, improving clarity and maintainability. Collaborated with a colleague to review and release new features for live users; resolved bugs and validated functionality through hands-on testing.</p>
-                                    <p>Strengthened security by adding SQL-injection protection and reviewing data-handling practices. Optimized APIs and database queries to support 10k+ concurrent users with minimal latency, increasing overall site speed and stability.</p>
-                                    <p>Delivered a faster, more intuitive product by combining performance tuning with modern UI/UX improvements.</p>
-                                </div>
-                            </div>
-
-                            <div className="group border-b border-foreground/5 pb-10">
-                                <div className="flex flex-col md:flex-row justify-between items-start gap-4 mb-6">
-                                    <div>
-                                        <h3 className="text-3xl font-serif">Salesperson</h3>
-                                        <p className="opacity-60 font-medium">Tecnomarket by Mabetex</p>
-                                    </div>
-                                    <span className="text-sm opacity-40 font-medium">JUN 2024 — AUG 2024 (3 MOS)</span>
-                                </div>
-                                <p className="text-lg opacity-60 leading-relaxed max-w-2xl">
-                                    Lebanë 10000, Kosovo. Focused on Customer Service and Sales, developing strong interpersonal and communication skills in a professional retail environment.
-                                </p>
-                            </div>
-
-                            <div className="group border-b border-foreground/5 pb-10">
-                                <div className="flex flex-col md:flex-row justify-between items-start gap-4 mb-6">
-                                    <div>
-                                        <h3 className="text-3xl font-serif">Full Stack Developer</h3>
-                                        <p className="opacity-60 font-medium">Freelance</p>
-                                    </div>
-                                    <span className="text-sm opacity-40 font-medium">JAN 2020 — JAN 2024 (4 YRS 1 MO)</span>
-                                </div>
-                                <p className="text-lg opacity-60 leading-relaxed max-w-2xl">
-                                    Remote. Designing and developing end-to-end web applications for various clients, mastering a wide range of technologies and project scopes.
-                                </p>
-                            </div>
+                                    {exp.description && (
+                                        <p className="text-lg opacity-70 leading-relaxed font-serif max-w-2xl">{exp.description}</p>
+                                    )}
+                                    {exp.details && (
+                                        <ul className="space-y-3 pt-2">
+                                            {exp.details.map((detail, j) => (
+                                                <li key={j} className="flex gap-4 text-base opacity-60 leading-relaxed font-serif">
+                                                    <span className="text-primary mt-1.5 text-xs">0{j + 1}</span>
+                                                    <span>{detail}</span>
+                                                </li>
+                                            ))}
+                                        </ul>
+                                    )}
+                                </motion.div>
+                            ))}
                         </div>
-                    </motion.div>
+                    </section>
 
-                    <motion.div variants={reveal} className="pt-24 border-t border-foreground/5">
-                        <h2 className="text-sm font-medium uppercase tracking-[0.3em] opacity-40 mb-12 flex items-center gap-3">
-                            <div className="h-2 w-2 rounded-full bg-primary" />
+                    {/* Community Impact */}
+                    <section className="space-y-16 pt-16 border-t border-foreground/5">
+                        <motion.h2 variants={reveal} className="text-xs font-bold uppercase tracking-[0.3em] text-primary flex items-center gap-4">
+                            <span className="h-px w-8 bg-primary" />
                             Community & Impact
-                        </h2>
+                        </motion.h2>
 
-                        <div className="space-y-16">
-                            <div className="group">
-                                <div className="flex flex-col md:flex-row justify-between items-start gap-4 mb-4">
-                                    <div>
-                                        <h3 className="text-2xl font-serif">SFK / FLOSSK Team</h3>
-                                        <p className="opacity-60 font-medium">FLOSSK - Free Libre Open Source Software Kosova</p>
+                        <div className="grid grid-cols-1 md:grid-cols-2 gap-12">
+                            {community.map((item, i) => (
+                                <motion.div key={i} variants={reveal} className="space-y-4">
+                                    <div className="space-y-1">
+                                        <h3 className="text-xl font-serif">{item.role}</h3>
+                                        <p className="text-xs text-primary font-bold uppercase tracking-widest">{item.org}</p>
                                     </div>
-                                    <span className="text-sm opacity-40 font-medium">OCT 2025 — PRESENT (5 MOS)</span>
-                                </div>
-                                <p className="text-lg opacity-60 leading-relaxed max-w-2xl">
-                                    As part of the SFK / FLOSSK team, I helped maintain a positive and welcoming environment for attendees and participants. I contributed to sponsor relations, ensuring they were well-supported and satisfied throughout the event. I also helped create and showcase projects, representing our work and values to visitors in an engaging and professional way.
-                                </p>
-                            </div>
-
-                            <div className="group">
-                                <div className="flex flex-col md:flex-row justify-between items-start gap-4 mb-4">
-                                    <div>
-                                        <h3 className="text-2xl font-serif">Arena Robobasket Supervisor</h3>
-                                        <p className="opacity-60 font-medium">Kosova Makers League</p>
-                                    </div>
-                                    <span className="text-sm opacity-40 font-medium">JUN 2025 — PRESENT (9 MOS)</span>
-                                </div>
-                                <p className="text-lg opacity-60 leading-relaxed max-w-2xl">
-                                    Volunteered at the Arena Robobasket "Super Finale" with Kosovo Makers, a national robotics event with over 3500+ students from schools across Kosovo. My role was to help monitor and ensure fair play by checking for any communication between students and their instructors during the challenges, supervising both students and their organization/school representatives, and ensuring everyone followed the rules. Successfully managed situations with uncooperative individuals and received a volunteering certification for my contribution.
-                                </p>
-                            </div>
-
-                            <div className="group">
-                                <div className="flex flex-col md:flex-row justify-between items-start gap-4 mb-4">
-                                    <div>
-                                        <h3 className="text-2xl font-serif">Community Contributor</h3>
-                                        <p className="opacity-60 font-medium">Google Developer Groups Prishtina</p>
-                                    </div>
-                                    <span className="text-sm opacity-40 font-medium">MAY 2025 — PRESENT (10 MOS)</span>
-                                </div>
-                                <div className="space-y-4 text-lg opacity-60 leading-relaxed max-w-2xl">
-                                    <p>
-                                        Contributing to the tech community by organizing events including "Build with AI", helping with check-ins, and collecting feedback from attendees. Helping to foster a vibrant tech ecosystem in Kosovo through community engagement and technical mentorship.
-                                    </p>
-                                    <p>
-                                        Volunteered in key events including:
-                                    </p>
-                                    <ul className="list-disc pl-5 mt-2 space-y-1">
-                                        <li><span className="text-foreground">Build with AI</span></li>
-                                        <li><span className="text-foreground">Devfest</span> (500+ attendees)</li>
-                                    </ul>
-                                </div>
-                            </div>
+                                    <p className="text-sm opacity-60 leading-relaxed font-serif">{item.description}</p>
+                                    <div className="text-[10px] opacity-30 font-bold tracking-widest">{item.period}</div>
+                                </motion.div>
+                            ))}
                         </div>
-                    </motion.div>
+                    </section>
                 </div>
 
-                {/* Skills & Stats Sidebar */}
-                <aside className="md:col-span-4 space-y-8">
-                    <motion.div variants={reveal} className="bento-card p-8 space-y-8">
-                        <h3 className="text-xs font-medium uppercase tracking-widest opacity-40">Core Expertise</h3>
+                {/* Sidebar */}
+                <aside className="lg:col-span-4 space-y-12">
+                    {/* Skills */}
+                    <motion.div variants={reveal} className="p-8 rounded-2xl border border-foreground/10 space-y-8">
+                        <h3 className="text-xs font-bold uppercase tracking-widest opacity-40">Technical Expertise</h3>
                         <div className="grid grid-cols-4 gap-6">
-                            <SiReact className="h-6 w-6 opacity-60 hover:opacity-100 hover:text-primary transition-all cursor-pointer" title="React" />
-                            <RiNextjsFill className="h-6 w-6 opacity-60 hover:opacity-100 hover:text-primary transition-all cursor-pointer" title="Next.js" />
-                            <SiTypescript className="h-6 w-6 opacity-60 hover:opacity-100 hover:text-primary transition-all cursor-pointer" title="TypeScript" />
-                            <FaNodeJs className="h-6 w-6 opacity-60 hover:opacity-100 hover:text-primary transition-all cursor-pointer" title="Node.js" />
-                            <SiLaravel className="h-6 w-6 opacity-60 hover:opacity-100 hover:text-primary transition-all cursor-pointer" title="Laravel" />
-                            <SiAngular className="h-6 w-6 opacity-60 hover:opacity-100 hover:text-primary transition-all cursor-pointer" title="AngularJS" />
-                            <FaAws className="h-6 w-6 opacity-60 hover:opacity-100 hover:text-primary transition-all cursor-pointer" title="AWS" />
-                            <SiSwift className="h-6 w-6 opacity-60 hover:opacity-100 hover:text-primary transition-all cursor-pointer" title="Swift" />
+                            <RiNextjsFill className="h-6 w-6 opacity-40 hover:opacity-100 hover:text-primary transition-all cursor-pointer" title="Next.js" />
+                            <SiReact className="h-6 w-6 opacity-40 hover:opacity-100 hover:text-primary transition-all cursor-pointer" title="React" />
+                            <SiTypescript className="h-6 w-6 opacity-40 hover:opacity-100 hover:text-primary transition-all cursor-pointer" title="TypeScript" />
+                            <SiNodedotjs className="h-6 w-6 opacity-40 hover:opacity-100 hover:text-primary transition-all cursor-pointer" title="Node.js" />
+                            <SiLaravel className="h-6 w-6 opacity-40 hover:opacity-100 hover:text-primary transition-all cursor-pointer" title="Laravel" />
+                            <SiAngular className="h-6 w-6 opacity-40 hover:opacity-100 hover:text-primary transition-all cursor-pointer" title="Angular" />
+                            <SiAmazonwebservices className="h-6 w-6 opacity-40 hover:opacity-100 hover:text-primary transition-all cursor-pointer" title="AWS" />
+                            <SiSwift className="h-6 w-6 opacity-40 hover:opacity-100 hover:text-primary transition-all cursor-pointer" title="Swift" />
                         </div>
                     </motion.div>
 
-                    <motion.div variants={reveal} className="bento-card p-8 bg-primary/5 border-primary/10">
-                        <div className="flex items-center gap-3 mb-4 text-primary">
-                            <Users className="h-5 w-5" />
-                            <h3 className="text-xs font-medium uppercase tracking-widest">Leadership</h3>
+                    {/* Certifications - Premium Redesign */}
+                    <motion.div variants={reveal} className="p-8 rounded-2xl border border-foreground/10 space-y-8 bg-foreground/[0.02]">
+                        <div className="flex items-center justify-between">
+                            <h3 className="text-xs font-bold uppercase tracking-widest opacity-40">Certifications</h3>
+                            <Award className="h-4 w-4 text-primary" />
                         </div>
-                        <p className="text-sm opacity-60 leading-relaxed">
-                            Discipline shaped by competitive volleyball. Reinforcing accountability and communication within technical teams.
-                        </p>
+                        <div className="space-y-6">
+                            {certifications.map((cert, i) => (
+                                <Link
+                                    key={i}
+                                    href={cert.file}
+                                    target="_blank"
+                                    className="group block space-y-1 hover:translate-x-1 transition-transform"
+                                >
+                                    <div className="flex items-start justify-between">
+                                        <h4 className="text-sm font-bold group-hover:text-primary transition-colors leading-snug pr-4">
+                                            {cert.title}
+                                        </h4>
+                                        <ExternalLink className="h-3 w-3 shrink-0 opacity-20 group-hover:opacity-100 transition-opacity" />
+                                    </div>
+                                    <div className="flex items-center gap-2 text-[10px] uppercase font-bold tracking-widest opacity-40">
+                                        <span>{cert.issuer}</span>
+                                        <span className="opacity-20">•</span>
+                                        <span className="flex items-center gap-1"><Calendar className="h-2 w-2" /> {cert.date}</span>
+                                    </div>
+                                </Link>
+                            ))}
+                        </div>
                     </motion.div>
 
-                    <motion.div variants={reveal} className="bento-card p-8">
-                        <div className="flex items-center gap-3 mb-6">
-                            <FileText className="h-5 w-5 text-foreground/40" />
-                            <h3 className="text-xs font-medium uppercase tracking-widest opacity-40">Certifications</h3>
+                    {/* Metadata summary */}
+                    <motion.div variants={reveal} className="p-8 space-y-6 opacity-50">
+                        <div className="text-[10px] uppercase font-bold tracking-[0.2em] mb-4">System Reference</div>
+                        <div className="space-y-4 font-mono text-xs">
+                            <div className="flex justify-between">
+                                <span>Years active</span>
+                                <span>7+</span>
+                            </div>
+                            <div className="flex justify-between">
+                                <span>Base location</span>
+                                <span>Pristina, KOS</span>
+                            </div>
+                            <div className="flex justify-between">
+                                <span>Core focus</span>
+                                <span>Architecting scale</span>
+                            </div>
                         </div>
-                        <ul className="space-y-4">
-                            <li>
-                                <a
-                                    href="/assets/certifications/Mastermind ISO 27001 2022 (1).pdf"
-                                    target="_blank"
-                                    className="group flex items-center justify-between hover:text-primary transition-colors"
-                                >
-                                    <span className="text-sm font-medium">ISO 27001:2022 Implementation</span>
-                                    <ArrowUpRight className="h-4 w-4 opacity-0 group-hover:opacity-100 transition-opacity" />
-                                </a>
-                            </li>
-                            <li>
-                                <a
-                                    href="/assets/certifications/META.pdf"
-                                    target="_blank"
-                                    className="group flex items-center justify-between hover:text-primary transition-colors"
-                                >
-                                    <span className="text-sm font-medium">Meta Professional Certificate</span>
-                                    <ArrowUpRight className="h-4 w-4 opacity-0 group-hover:opacity-100 transition-opacity" />
-                                </a>
-                            </li>
-                            <li>
-                                <a
-                                    href="/assets/certifications/Coursera Course M7CYXZOB4BLW.pdf"
-                                    target="_blank"
-                                    className="group flex items-center justify-between hover:text-primary transition-colors"
-                                >
-                                    <span className="text-sm font-medium">Coursera: Technical Domain</span>
-                                    <ArrowUpRight className="h-4 w-4 opacity-0 group-hover:opacity-100 transition-opacity" />
-                                </a>
-                            </li>
-                            <li>
-                                <a
-                                    href="/assets/certifications/Coursera Course PDF.pdf"
-                                    target="_blank"
-                                    className="group flex items-center justify-between hover:text-primary transition-colors"
-                                >
-                                    <span className="text-sm font-medium">Advanced Engineering Specialization</span>
-                                    <ArrowUpRight className="h-4 w-4 opacity-0 group-hover:opacity-100 transition-opacity" />
-                                </a>
-                            </li>
-                        </ul>
-                    </motion.div>
-
-                    <motion.div variants={reveal} className="bento-card p-8">
-                        <div className="flex items-center gap-3 mb-4">
-                            <ShieldCheck className="h-5 w-5 text-foreground/40" />
-                            <h3 className="text-xs font-medium uppercase tracking-widest opacity-40">Security First</h3>
-                        </div>
-                        <p className="text-sm opacity-60 leading-relaxed">
-                            Expertise in building production-ready systems with a strong focus on structural integrity and data safety.
-                        </p>
                     </motion.div>
                 </aside>
             </motion.div>

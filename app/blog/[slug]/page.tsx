@@ -39,7 +39,7 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
             };
         }
     } catch (error) {
-        console.error("SEO Metadata Failure (Appwrite):", error);
+        // Quiet failure for SEO metadata
     }
     return {
         title: "Blog | Ruhan Pacolli",
@@ -52,7 +52,6 @@ export default async function BlogPostPage({ params }: { params: Promise<{ slug:
 
     let post = null;
     try {
-        console.log(`[DEBUG] Fetching lightweight post for slug: ${slug} from Appwrite`);
         const response = await getDocuments(
             APPWRITE_BOOK_DATABASE_ID,
             APPWRITE_POSTS_COLLECTION_ID,
@@ -61,10 +60,9 @@ export default async function BlogPostPage({ params }: { params: Promise<{ slug:
 
         if (response.documents[0]) {
             post = blogPostSchema.parse(response.documents[0]);
-            console.log(`[DEBUG] Successfully fetched metadata for post from Appwrite`);
         }
     } catch (error) {
-        console.error("Fetch Failure - Blog post metadata (Appwrite):", error);
+        // Quiet failure for content fetch
     }
 
     return <PostClient post={post} />;

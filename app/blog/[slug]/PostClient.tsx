@@ -116,7 +116,6 @@ export default function PostClient({ post }: { post: any }) {
                 setFinalContent(restored);
                 setIsLoading(false);
             } catch (err) {
-                console.error("Content fetch error:", err);
                 setError("Could not load post content. Please try again later.");
                 setIsLoading(false);
             }
@@ -141,26 +140,26 @@ export default function PostClient({ post }: { post: any }) {
     );
 
     return (
-        <main className="px-8 pt-48 pb-24 max-w-4xl mx-auto">
+        <main className="px-6 md:px-8 pt-32 md:pt-48 pb-24 max-w-4xl mx-auto">
             <motion.div
                 initial="initial"
                 animate="animate"
                 variants={reveal}
             >
-                <Link href="/blog" className="flex items-center gap-2 text-xs font-medium uppercase tracking-widest opacity-40 hover:opacity-100 transition-opacity mb-12">
-                    <ArrowLeft className="h-4 w-4" />
+                <Link href="/blog" className="flex items-center gap-2 text-[10px] md:text-xs font-medium uppercase tracking-widest opacity-40 hover:opacity-100 transition-opacity mb-8 md:mb-12">
+                    <ArrowLeft className="h-3 w-3 md:h-4 md:w-4" />
                     Back to all talks
                 </Link>
 
-                <div className="space-y-6 mb-16">
+                <div className="space-y-6 mb-12 md:mb-16">
                     <div className="flex items-center gap-4">
-                        <span className="text-xs font-semibold px-3 py-1 bg-primary/10 text-primary rounded-full uppercase tracking-widest">{post.tag}</span>
-                        <div className="flex items-center gap-2 text-xs opacity-40 font-medium uppercase tracking-widest">
-                            <Clock className="h-4 w-4" />
+                        <span className="text-[10px] md:text-xs font-semibold px-2.5 md:px-3 py-1 bg-primary/10 text-primary rounded-full uppercase tracking-widest">{post.tag}</span>
+                        <div className="flex items-center gap-2 text-[10px] md:text-xs opacity-40 font-medium uppercase tracking-widest">
+                            <Clock className="h-3 w-3 md:h-4 md:w-4" />
                             {post.reading_time_minutes} MIN READ
                         </div>
                     </div>
-                    <h1 className="text-5xl md:text-7xl font-serif leading-tight">
+                    <h1 className="text-4xl md:text-7xl font-serif leading-tight">
                         {post.title}
                     </h1>
 
