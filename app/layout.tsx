@@ -16,6 +16,7 @@ const syne = Syne({
 
 import Navbar from "./components/Navbar";
 import Footer from "./components/Footer";
+import LoadingWrapper from "./LoadingWrapper";
 
 export const metadata: Metadata = {
   metadataBase: new URL("https://www.ruhanpacolli.online"),
@@ -78,12 +79,14 @@ export default function RootLayout({
       <body
         className={`${dmSerif.variable} ${syne.variable} antialiased bg-background text-foreground selection:bg-primary/30 min-h-screen`}
       >
-        <div className="grain overflow-x-hidden">
-          <Analytics />
-          <Navbar />
-          {children}
-          <Footer />
-        </div>
+        <LoadingWrapper>
+          <div className="grain overflow-x-hidden">
+            <Analytics />
+            <Navbar />
+            {children}
+            <Footer />
+          </div>
+        </LoadingWrapper>
       </body>
     </html>
   );
