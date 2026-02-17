@@ -23,10 +23,11 @@ export default async function BlogPage() {
         const validatedPosts = response.documents.map((doc: any) => blogPostSchema.parse(doc));
         blogs = validatedPosts;
     } catch (error) {
+        console.error("Appwrite Fetch Failure - Blog posts:", error);
     }
 
     return (
-        <main className="px-6 md:px-8 pt-32 md:pt-48 pb-24 max-w-7xl mx-auto">
+        <main className="px-8 pt-48 pb-24 max-w-7xl mx-auto">
             <BlogClient blogs={blogs} />
         </main>
     );

@@ -16,11 +16,14 @@ export async function GET(
         const post = response.documents[0];
 
         if (!post || !post.content) {
+            console.log(`[API] Post not found in Appwrite: ${slug}`);
             return NextResponse.json({ error: "Post not found" }, { status: 404 });
         }
 
+        console.log(`[API] Successfully fetched content for ${slug} from Appwrite. Content length: ${post.content.length}`);
         return NextResponse.json({ content: post.content });
     } catch (error) {
+        console.error("Appwrite API Fetch Error:", error);
         return NextResponse.json({ error: "Internal Server Error" }, { status: 500 });
     }
 }

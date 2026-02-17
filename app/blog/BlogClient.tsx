@@ -24,12 +24,12 @@ export default function BlogClient({ blogs }: { blogs: any[] }) {
             animate="animate"
             variants={stagger}
         >
-            <motion.div variants={reveal} className="flex flex-col md:flex-row justify-between items-start md:items-end gap-6 md:gap-8 mb-16 md:mb-24">
-                <h1 className="text-6xl sm:text-7xl md:text-[10rem] font-serif leading-[0.85] tracking-tight">
+            <motion.div variants={reveal} className="flex flex-col md:flex-row justify-between items-end gap-8 mb-24">
+                <h1 className="text-7xl md:text-[10rem] font-serif leading-[0.85] tracking-tight">
                     Latest <br />
                     <span className="text-primary italic">Talks</span>
                 </h1>
-                <div className="flex items-center gap-4 text-[10px] md:text-xs font-medium uppercase tracking-widest opacity-40 mb-2 md:mb-6 text-foreground/40">
+                <div className="flex items-center gap-4 text-xs font-medium uppercase tracking-widest opacity-40 mb-6 text-foreground/40">
                     <Search className="h-4 w-4" />
                     SEARCH ARTICLES
                 </div>

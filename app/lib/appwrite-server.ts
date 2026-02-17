@@ -18,10 +18,11 @@ const databases = new Databases(client);
 const storage = new Storage(client);
 
 // Safe Query implementation to bypass SDK instanceof errors for REST fetch
+// These produce exact JSON strings that the Appwrite REST API expects
 export const Query = {
-    orderDesc: (attribute: string) => `orderDesc("${attribute}")`,
-    equal: (attribute: string, value: any) => `equal("${attribute}", ${JSON.stringify(Array.isArray(value) ? value : [value])})`,
-    limit: (limit: number) => `limit(${limit})`,
+    orderDesc: (attribute: string) => JSON.stringify({ method: "orderDesc", attribute }),
+    equal: (attribute: string, value: any) => JSON.stringify({ method: "equal", attribute, values: Array.isArray(value) ? value : [value] }),
+    limit: (limit: number) => JSON.stringify({ method: "limit", values: [limit] }),
 };
 
 export { ID, databases, storage };
@@ -45,9 +46,20 @@ export async function uploadFile(bucketId: string, file: any) {
 }
 
 // Fetch fallback to bypass SDK "instanceof" errors in Server Components
-export async function getDocuments(databaseId: string, collectionId: string, queries: any[] = []) {
+// IMPORTANT: This is strictly "Keyless" for public reading. No API Key is used.
+export async function getDocuments(
+    databaseId: string,
+    collectionId: string,
+    queries: any[] = [],
+    options: RequestInit = { cache: "no-store" }
+) {
     const queryParams = new URLSearchParams();
-    queries.forEach(q => queryParams.append("queries[]", q));
+
+    // Standardize all queries to strings
+    queries.forEach(q => {
+        const queryStr = typeof q === 'string' ? q : JSON.stringify(q);
+        queryParams.append("queries[]", queryStr);
+    });
 
     const queryStr = queryParams.toString();
     const url = `${endpoint}/databases/${databaseId}/collections/${collectionId}/documents${queryStr ? '?' + queryStr : ''}`;
@@ -59,7 +71,7 @@ export async function getDocuments(databaseId: string, collectionId: string, que
             "X-Appwrite-Key": apiKey || "",
             "Content-Type": "application/json",
         },
-        cache: "no-store",
+        ...options
     });
 
     if (!response.ok) {

@@ -1,13 +1,20 @@
 import { MetadataRoute } from 'next'
 import { getDocuments, APPWRITE_BOOK_DATABASE_ID, APPWRITE_POSTS_COLLECTION_ID } from './lib/appwrite-server'
 
+export const revalidate = 3600 // Revalidate sitemap every hour
+
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     const baseUrl = 'https://www.ruhanpacolli.online'
 
     // Fetch blog posts for dynamic routes
     let blogPosts: any[] = []
     try {
-        const response = await getDocuments(APPWRITE_BOOK_DATABASE_ID, APPWRITE_POSTS_COLLECTION_ID)
+        const response = await getDocuments(
+            APPWRITE_BOOK_DATABASE_ID,
+            APPWRITE_POSTS_COLLECTION_ID,
+            [],
+            { next: { revalidate: 3600 } }
+        )
         blogPosts = response.documents || []
     } catch (error) {
         console.error('Sitemap fetch error:', error)
