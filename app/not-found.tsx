@@ -1,13 +1,17 @@
 "use client";
 
-import { motion } from "framer-motion";
+import { motion, Variants } from "framer-motion";
 import { ArrowLeft, Search, ShieldAlert, Cpu } from "lucide-react";
 import Link from "next/link";
 
 export default function NotFound() {
-    const reveal = {
+    const reveal: Variants = {
         initial: { opacity: 0, y: 20 },
-        animate: { opacity: 1, y: 0, transition: { duration: 0.8, ease: [0.16, 1, 0.3, 1] } },
+        animate: {
+            opacity: 1,
+            y: 0,
+            transition: { duration: 0.8, ease: [0.16, 1, 0.3, 1] as const }
+        },
     };
 
     const stagger = {
